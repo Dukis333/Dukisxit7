@@ -50,7 +50,7 @@
 
   const audio = new Audio();
   audio.preload = "auto";
-  audio.volume = 0.7;
+  audio.volume = 0.35;
 
   const cleanExternalAudio = () => {
     document.querySelectorAll("audio").forEach((element) => {
@@ -60,6 +60,7 @@
       element.pause();
       element.remove();
     });
+    audio.pause();
   };
 
   cleanExternalAudio();
@@ -85,6 +86,7 @@
 
   const loadTrack = (index, autoPlay = true) => {
     currentIndex = ((index % playlist.length) + playlist.length) % playlist.length;
+    audio.pause();
     audio.src = encodeURI(`./${playlist[currentIndex].file}`);
     audio.currentTime = 0;
     updateDisplay();
@@ -178,12 +180,25 @@
     }
   };
 
+  const attachEntryListener = () => {
+    const overlay = document.querySelector(".enter-screen");
+    if (!overlay || overlay.__musicSwitcherBound) {
+      return;
+    }
+    overlay.__musicSwitcherBound = true;
+    overlay.addEventListener("click", () => {
+      showSwitcher();
+    });
+  };
+
   const observer = new MutationObserver(() => {
     cleanExternalAudio();
     checkEntry();
+    attachEntryListener();
   });
   observer.observe(document.body, { childList: true, subtree: true });
   checkEntry();
+  attachEntryListener();
 
   initDisplay();
 })();
