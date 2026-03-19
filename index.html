@@ -27,7 +27,7 @@
         --player-panel-bg: rgba(5, 5, 5, 0.9);
         --player-accent: #00ffff;
         --font-sans: "Manrope", system-ui, sans-serif;
-        --footer-clearance: 5.5rem;
+        --footer-clearance: 4.5rem;
         --button-glow:
           0 0 0 1px rgba(255, 255, 255, 0.12),
           0 0 14px rgba(255, 255, 255, 0.2);
@@ -163,7 +163,7 @@
         z-index: 1;
       }
       .page-shell__content {
-        padding-bottom: calc(var(--footer-clearance) - 1.25rem);
+        padding-bottom: 0.5rem;
       }
       .details-section {
         position: relative;
@@ -406,49 +406,6 @@
       <div class="page-shell__content">
         <!-- Root da app antiga (React). -->
         <div id="root"></div>
-        <!-- Conteudo manual editavel -->
-        <section class="details-section" aria-labelledby="info-heading">
-          <div class="details-grid">
-            <article class="detail-card">
-              <h3 id="info-heading">Dev Fullstack</h3>
-              <p>Faço front e back com foco em experiências imersivas que combinam vídeo e áudio sob controle do usuário.</p>
-              <p>Minha abordagem evita disparos automáticos até que o visitante toque para liberar o som.</p>
-            </article>
-            <article class="detail-card">
-              <h3>Créditos</h3>
-              <ul>
-                <li>Email: marcosxxt658@gmail.com</li>
-                <li>WhatsApp: https://wa.me/5593981160223</li>
-                <li>Instagram: @marcos_xll77</li>
-              </ul>
-            </article>
-            <article class="detail-card">
-              <h3>Mais informações</h3>
-              <p>Role para baixo para ver o conteúdo complementar e os contatos fixos.</p>
-              <p>O overlay some e o player permanece fixo para você continuar navegando.</p>
-            </article>
-          </div>
-        </section>
-        <section class="scroll-section">
-          <h3>Detalhes extras</h3>
-          <p>
-            Navegue por esta seção para forçar a rolagem: ela fala sobre metodologia, stack e narrativa sonora.
-          </p>
-          <div class="scroll-section__grid">
-            <article>
-              <strong>Stack</strong>
-              <p>React + Tailwind + Node em um servidor que entende mídia e experiência rica.</p>
-            </article>
-            <article>
-              <strong>Processo</strong>
-              <p>Prototipo com atenção a performance, animações suaves e controle de volume manual.</p>
-            </article>
-            <article>
-              <strong>Marca</strong>
-              <p>Foco em presença digital que se move enquanto o visitante explora cada seção.</p>
-            </article>
-          </div>
-        </section>
       </div>
     </div>
     <footer
@@ -584,27 +541,6 @@
         const observer = new MutationObserver(cleanProjects);
         observer.observe(document.documentElement, { childList: true, subtree: true });
         setTimeout(() => observer.disconnect(), 15000);
-      })();
-    </script>
-    <script>
-      (function adjustScrollForCredits() {
-        function updateClearance() {
-          const footer = document.getElementById("credits-footer");
-          if (!footer) return;
-
-          const styles = window.getComputedStyle(footer);
-          const bottom = parseFloat(styles.bottom) || 0;
-          const clearance = Math.ceil(footer.offsetHeight + bottom + 24);
-          document.documentElement.style.setProperty("--footer-clearance", `${clearance}px`);
-        }
-
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", updateClearance);
-        } else {
-          updateClearance();
-        }
-
-        window.addEventListener("resize", updateClearance);
       })();
     </script>
     <script src="./player.js" defer></script>
