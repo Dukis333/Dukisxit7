@@ -28,7 +28,6 @@
       paused: "Pausado",
       playButton: "Reproduzir",
       pauseButton: "Pausar",
-      unlockError: "Permita audio antes de tocar",
     },
   };
 
@@ -95,7 +94,9 @@
     try {
       await audio.play();
     } catch (error) {
-      ui.status.textContent = SETTINGS.labels.unlockError;
+      // Evita mensagem de bloqueio; mantem estado e tenta novamente no proximo gatilho.
+      state.isPlaying = false;
+      updateUi();
     }
   }
 
@@ -120,6 +121,29 @@
 
   updatePanelUi();
   updateUi();
+
+  // Tenta iniciar automaticamente de forma silenciosa e depois restaura o volume.
+  (function tryAutoStart() {
+    const initialVolume = audio.volume;
+    audio.volume = 0;
+    audio.muted = true;
+
+    audio
+      .play()
+      .then(() => {
+        state.isPlaying = true;
+        updateUi();
+
+        setTimeout(() => {
+          audio.muted = false;
+          audio.volume = initialVolume;
+        }, 200);
+      })
+      .catch(() => {
+        audio.muted = false;
+        audio.volume = initialVolume;
+      });
+  })();
 
   ui.tabButton.addEventListener("click", togglePanel);
   ui.toggleButton.addEventListener("click", togglePlay);
