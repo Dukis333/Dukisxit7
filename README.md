@@ -44,7 +44,7 @@ Servidor padrão: `http://localhost:5173`
 - Instagram: `@marcos_xll77`
 
 ## Player e experiência
-- Clique na tela inicial para liberar o player, então o painel aparece no canto esquerdo.
+- O player aparece direto no canto esquerdo, sem etapa de entrada.
 - Apenas DJ MU540 — Submundo 808 é carregado e começa a tocar após você apertar `Reproduzir`.
 - Outros players/mídias são pausados automaticamente para evitar sobreposição de áudio.
 - Use o slider de volume no painel para ajustar o áudio sem precisar mexer no sistema.

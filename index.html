@@ -35,52 +35,6 @@
         filter: saturate(1.05) contrast(1.1);
         pointer-events: none;
       }
-      .enter-overlay {
-        position: fixed;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.85));
-        z-index: 80;
-        transition: opacity 0.6s ease;
-      }
-      .enter-overlay.hidden {
-        opacity: 0;
-        pointer-events: none;
-      }
-      .enter-overlay__card {
-        background: rgba(10, 10, 10, 0.95);
-        border-radius: 1.75rem;
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        padding: 2rem;
-        text-align: center;
-        box-shadow: 0 35px 80px rgba(0, 0, 0, 0.65);
-        max-width: 360px;
-      }
-      .enter-overlay__card p {
-        margin-bottom: 1.5rem;
-        font-size: 0.95rem;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.75);
-      }
-      .enter-overlay__card button {
-        border: none;
-        background: linear-gradient(135deg, #ff5f6d, #ffc371);
-        color: #050505;
-        text-transform: uppercase;
-        letter-spacing: 0.3em;
-        padding: 0.95rem 1.5rem;
-        border-radius: 999px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-      .enter-overlay__card button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
-      }
       .player-panel {
         position: fixed;
         top: 50%;
@@ -271,17 +225,11 @@
         type="video/mp4"
       />
     </video>
-    <div class="enter-overlay" id="enter-overlay">
-      <div class="enter-overlay__card">
-        <p>Bem-vindo ao universo Dukis</p>
-        <p>Clique em qualquer lugar para entrar</p>
-      </div>
-    </div>
-    <div class="player-panel player-panel--hidden" id="player-panel">
+    <div class="player-panel player-panel--visible" id="player-panel">
       <h2>Trilha sonora</h2>
       <strong>DJ MU540 — Submundo 808</strong>
       <button type="button" id="player-toggle">Reproduzir</button>
-      <span class="player-panel__status" id="player-status">Aguardando entrada</span>
+      <span class="player-panel__status" id="player-status">Pausado</span>
       <div class="player-panel__volume">
         <span>Volume</span>
         <input type="range" min="0" max="1" step="0.01" id="player-volume" value="0.35" />

@@ -9,25 +9,17 @@
   audio.preload = "auto";
   audio.volume = 0.35;
 
-  const overlay = document.getElementById("enter-overlay");
   const playerPanel = document.getElementById("player-panel");
   const toggleButton = document.getElementById("player-toggle");
   const status = document.getElementById("player-status");
   const volumeInput = document.getElementById("player-volume");
 
-  if (!overlay || !playerPanel || !toggleButton || !status) {
+  if (!playerPanel || !toggleButton || !status || !volumeInput) {
     return;
   }
 
-  document.body.style.overflow = "hidden";
-
-  const showPlayer = () => {
-    playerPanel.classList.add("player-panel--visible");
-    overlay.classList.add("hidden");
-    overlay.style.display = "none";
-    document.body.style.overflow = "auto";
-    status.textContent = "Pronto para tocar";
-  };
+  playerPanel.classList.add("player-panel--visible");
+  status.textContent = "Pausado";
 
   const updateStatus = () => {
     status.textContent = isPlaying ? "Tocando" : "Pausado";
@@ -64,11 +56,6 @@
       });
   };
 
-  overlay.addEventListener("click", () => {
-    showPlayer();
-    togglePlay();
-  });
-
   toggleButton.addEventListener("click", () => {
     togglePlay();
   });
@@ -90,12 +77,10 @@
 
   document.addEventListener("play", stopExternalMedia, true);
 
-  if (volumeInput) {
-    volumeInput.addEventListener("input", (event) => {
-      const value = Number(event.target.value);
-      if (!Number.isNaN(value)) {
-        audio.volume = value;
-      }
-    });
-  }
+  volumeInput.addEventListener("input", (event) => {
+    const value = Number(event.target.value);
+    if (!Number.isNaN(value)) {
+      audio.volume = value;
+    }
+  });
 })();
