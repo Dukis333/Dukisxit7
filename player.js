@@ -63,6 +63,7 @@
 
   enterButton.addEventListener("click", () => {
     showPlayer();
+    togglePlay();
   });
 
   toggleButton.addEventListener("click", () => {
