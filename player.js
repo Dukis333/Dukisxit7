@@ -18,8 +18,7 @@
 */
 (function initCustomPlayer() {
   const SETTINGS = {
-    audioSrc:
-      "./Díario de um Cafajeste O amor não paga as conta MC's Lele JP, Ryan SP, Meno k,Negão Original, Tuto - MC Lele JP (youtube).mp3",
+    audioSrc: "./diario-cafajeste.mp3",
     initialVolume: 0.35,
     autoPlayOnFirstUserClick: true,
     // Mantem o video de fundo rodando e evita pausar ele.
