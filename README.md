@@ -1,56 +1,52 @@
-﻿# Portfólio — Dukis
+﻿# Dukis | Portofolio
 
-Bem-vindo ao meu portfólio pessoal. Este projeto é uma landing page moderna e direta para apresentar trabalhos, habilidades e presença digital.
+Portofolio pessoal com visual imersivo, fundo animado e trilha sonora integrada.
 
-## Destaques
-- Visual escuro com brilho suave e trilha sonora controlada.
-- Fundo em vídeo (Anime 4K) e overlay minimalista antes de entrar.
-- Layout responsivo com detalhes de contato e créditos fixos.
+## Visao geral
+- Landing page com foco em identidade visual.
+- Fundo animado em tela cheia.
+- Player customizado com controle de volume.
+- Secoes de informacoes e contatos fixos.
 
-## Tecnologias
+## Stack
 - HTML5
-- CSS (Tailwind build)
+- CSS
 - JavaScript
+- Build legado em `assets/` (React/Tailwind)
 
-## Como rodar localmente
-1. Abra `index.html` direto no navegador.
-2. Ou use os scripts de servidor:
+## Execucao local
+1. Abrir o `index.html` no navegador.
+2. Ou subir servidor local:
 
 ```bash
 # PowerShell
 ./serve.ps1
 
-# Windows (CMD)
+# CMD
 serve.bat
 
-# Node.js
+# Node
 node serve.js
 ```
 
-Servidor padrão: `http://localhost:5173`
+Padrao: `http://localhost:5173`
 
-## Estrutura
+## Estrutura principal
 - `index.html`
+- `player.js`
 - `assets/`
 - `serve.js`
 - `serve.ps1`
 - `serve.bat`
-- `player.js`
-- `Live Wallpaper Anime HD_4K - Samurai Autumn - LoveLiveWallpaper (2160p, av1, youtube).mp4`
 
-## Créditos e Contato
+## Creditos oficiais
 - Email: `marcosxxt658@gmail.com`
 - WhatsApp: `https://wa.me/5593981160223`
 - Instagram: `@marcos_xll77`
 
-## Player e experiência
-- O player aparece direto no canto esquerdo, sem etapa de entrada.
-- Apenas DJ MU540 — Submundo 808 é carregado e começa a tocar após você apertar `Reproduzir`.
-- Outros players/mídias são pausados automaticamente para evitar sobreposição de áudio.
-- Use o slider de volume no painel para ajustar o áudio sem precisar mexer no sistema.
-- Role a página até a seção “Detalhes extras”: ela garante rolagem e documenta stack, processo e a narrativa sonora por trás do site.
-- O vídeo `Live Wallpaper Anime HD_4K - Samurai Autumn - LoveLiveWallpaper…` serve como pano de fundo contínuo enquanto você rola a página.
+## Repositorio
+- GitHub: `https://github.com/Dukis333/Dukisxit7.git`
 
 ---
 
-Créditos mantidos em todo o projeto conforme solicitado.
+Projeto com creditos mantidos no codigo e no README.
