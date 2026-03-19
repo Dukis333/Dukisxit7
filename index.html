@@ -273,16 +273,20 @@
       }
       .social-quick {
         width: 100%;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.6rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: nowrap;
+        gap: 0.55rem;
         margin-top: 0.25rem;
       }
       .social-quick__item {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
-        padding: 0.65rem 0.7rem;
+        justify-content: center;
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 0.55rem 0.35rem;
         border-radius: 0.85rem;
         border: 1px solid rgba(255, 255, 255, 0.14);
         background: rgba(255, 255, 255, 0.04);
@@ -296,26 +300,19 @@
         background: rgba(255, 255, 255, 0.08);
       }
       .social-quick__icon {
-        width: 1.6rem;
-        height: 1.6rem;
+        width: 2rem;
+        height: 2rem;
         border-radius: 999px;
         display: grid;
         place-items: center;
-        font-size: 0.85rem;
-        background: rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.95);
         animation: socialIconFloat 2.2s ease-in-out infinite;
       }
-      .social-quick__label {
-        font-size: 0.66rem;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        font-weight: 700;
-        line-height: 1;
-      }
-      .social-quick__value {
-        font-size: 0.64rem;
-        line-height: 1.2;
-        color: rgba(255, 255, 255, 0.68);
+      .social-quick__icon img {
+        width: 1.15rem;
+        height: 1.15rem;
+        display: block;
+        object-fit: contain;
       }
       footer {
         z-index: 60;
@@ -458,20 +455,17 @@
         const links = [
           {
             label: "WhatsApp",
-            value: "Falar agora",
-            icon: "💬",
+            iconPng: "https://img.icons8.com/ios-filled/100/111111/whatsapp.png",
             href: "https://wa.me/5593981160223",
           },
           {
             label: "Instagram",
-            value: "@marcos_xll77",
-            icon: "📸",
+            iconPng: "https://img.icons8.com/ios-filled/100/111111/instagram-new.png",
             href: "https://instagram.com/marcos_xll77",
           },
           {
             label: "Twitch",
-            value: "dukis_xl",
-            icon: "📺",
+            iconPng: "https://img.icons8.com/ios-filled/100/111111/twitch.png",
             href: "https://www.twitch.tv/dukis_xl",
           },
         ];
@@ -482,42 +476,20 @@
           anchor.href = item.href || "#";
           anchor.target = item.href ? "_blank" : "_self";
           anchor.rel = item.href ? "noreferrer" : "";
-
-          if (item.copyValue) {
-            anchor.addEventListener("click", async (event) => {
-              event.preventDefault();
-              try {
-                await navigator.clipboard.writeText(item.copyValue);
-                anchor.title = "Copiado!";
-                setTimeout(() => {
-                  anchor.title = "";
-                }, 1200);
-              } catch (error) {
-                anchor.title = item.copyValue;
-              }
-            });
-          }
+          anchor.ariaLabel = item.label;
+          anchor.title = item.label;
 
           const icon = document.createElement("span");
           icon.className = "social-quick__icon";
-          icon.textContent = item.icon;
           icon.setAttribute("aria-hidden", "true");
+          const image = document.createElement("img");
+          image.src = item.iconPng;
+          image.alt = `${item.label} logo`;
+          image.loading = "lazy";
+          image.decoding = "async";
 
-          const textWrap = document.createElement("span");
-          textWrap.style.display = "flex";
-          textWrap.style.flexDirection = "column";
-          textWrap.style.gap = "0.15rem";
-
-          const label = document.createElement("span");
-          label.className = "social-quick__label";
-          label.textContent = item.label;
-
-          const value = document.createElement("span");
-          value.className = "social-quick__value";
-          value.textContent = item.value;
-
-          textWrap.append(label, value);
-          anchor.append(icon, textWrap);
+          icon.appendChild(image);
+          anchor.append(icon);
           return anchor;
         }
 
