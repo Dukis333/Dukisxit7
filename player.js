@@ -112,6 +112,11 @@
   function togglePanel() {
     state.panelOpen = !state.panelOpen;
     updatePanelUi();
+
+    // Se abriu o painel e ainda nao esta tocando, tenta iniciar automaticamente.
+    if (state.panelOpen && !state.isPlaying && SETTINGS.autoPlayOnFirstUserClick) {
+      playAudio();
+    }
   }
 
   updatePanelUi();
@@ -126,8 +131,8 @@
       "click",
       (event) => {
         const target = event.target;
-        // Evita disparo duplo quando o clique foi no proprio player.
-        if (target instanceof Element && target.closest("#player-panel, #player-tab")) {
+        // Evita disparo duplo quando o clique foi no botao principal de play/pause.
+        if (target instanceof Element && target.closest("#player-toggle")) {
           return;
         }
 
