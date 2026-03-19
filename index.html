@@ -8,11 +8,17 @@
       content="Portfólio pessoal de Dukis — projetos, habilidades e presença digital com trilha sonora personalizada."
     />
     <title>Dukis | Portfolio</title>
+    <!-- App antiga (React/Tailwind). Se quiser pagina 100% manual, remova estas 2 linhas. -->
     <script type="module" crossorigin src="./assets/index-CUdt0hpo.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-Dt7S-A24.css" />
     <style>
+      /* ===== BLOCO DE CUSTOMIZACAO RAPIDA ===== */
       :root {
         color-scheme: dark;
+        --site-bg: #050505;
+        --site-text: #ffffff;
+        --player-panel-bg: rgba(5, 5, 5, 0.9);
+        --player-accent: #00ffff;
       }
       html,
       body {
@@ -25,8 +31,8 @@
       body {
         margin: 0;
         min-height: 100vh;
-        background: #050505;
-        color: #fff;
+        background: var(--site-bg);
+        color: var(--site-text);
         font-family: var(--font-sans, "Inter", system-ui, sans-serif);
       }
       #background-video {
@@ -45,7 +51,7 @@
         top: 50%;
         left: 1rem;
         transform: translate(-140%, -50%);
-        background: rgba(5, 5, 5, 0.9);
+        background: var(--player-panel-bg);
         border-radius: 1.5rem;
         border: 1px solid rgba(255, 255, 255, 0.15);
         padding: 1.25rem;
@@ -107,13 +113,16 @@
       }
       .player-panel__volume input {
         flex: 1;
-        accent-color: #0ff;
+        accent-color: var(--player-accent);
       }
       .page-shell {
         position: relative;
         width: 100%;
         min-height: 100vh;
         z-index: 1;
+      }
+      .page-shell__content {
+        padding-bottom: 6.5rem;
       }
       .details-section {
         position: relative;
@@ -217,6 +226,7 @@
     </style>
   </head>
   <body>
+    <!-- Video de fundo: troque o src abaixo para mudar o background -->
     <video
       id="background-video"
       autoplay
@@ -232,6 +242,7 @@
     </video>
     <div class="player-panel player-panel--visible" id="player-panel">
       <h2>Trilha sonora</h2>
+      <!-- Titulo visual da faixa principal -->
       <strong>DJ MU540 — Submundo 808</strong>
       <button type="button" id="player-toggle">Reproduzir</button>
       <span class="player-panel__status" id="player-status">Pausado</span>
@@ -242,7 +253,9 @@
     </div>
     <div class="page-shell">
       <div class="page-shell__content">
+        <!-- Root da app antiga (React). -->
         <div id="root"></div>
+        <!-- Conteudo manual editavel -->
         <section class="details-section" aria-labelledby="info-heading">
           <div class="details-grid">
             <article class="detail-card">
