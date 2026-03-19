@@ -27,6 +27,7 @@
         --player-panel-bg: rgba(5, 5, 5, 0.9);
         --player-accent: #00ffff;
         --font-sans: "Manrope", system-ui, sans-serif;
+        --footer-clearance: 9rem;
       }
       html,
       body {
@@ -130,7 +131,7 @@
         z-index: 1;
       }
       .page-shell__content {
-        padding-bottom: 6.5rem;
+        padding-bottom: var(--footer-clearance);
       }
       .details-section {
         position: relative;
@@ -300,6 +301,7 @@
       </div>
     </div>
     <footer
+      id="credits-footer"
       class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-full text-xs text-white/70 glass flex flex-wrap items-center gap-2"
       style="max-width: 90vw"
       aria-label="Créditos"
@@ -353,6 +355,27 @@
         const observer = new MutationObserver(cleanProjects);
         observer.observe(document.documentElement, { childList: true, subtree: true });
         setTimeout(() => observer.disconnect(), 15000);
+      })();
+    </script>
+    <script>
+      (function adjustScrollForCredits() {
+        function updateClearance() {
+          const footer = document.getElementById("credits-footer");
+          if (!footer) return;
+
+          const styles = window.getComputedStyle(footer);
+          const bottom = parseFloat(styles.bottom) || 0;
+          const clearance = Math.ceil(footer.offsetHeight + bottom + 24);
+          document.documentElement.style.setProperty("--footer-clearance", `${clearance}px`);
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", updateClearance);
+        } else {
+          updateClearance();
+        }
+
+        window.addEventListener("resize", updateClearance);
       })();
     </script>
     <script src="./player.js" defer></script>
