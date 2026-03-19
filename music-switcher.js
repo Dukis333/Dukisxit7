@@ -4,6 +4,7 @@
   WhatsApp: https://wa.me/5593981160223
   Instagram: @marcos_xll77
 */
+/* Global credits comment earlier... */
 (function () {
   const playlist = [
     {
@@ -45,6 +46,7 @@
   );
   let currentIndex = preferredIndex >= 0 ? preferredIndex : 0;
   let isPlaying = false;
+  let hasEntered = false;
 
   const audio = new Audio();
   audio.preload = "auto";
@@ -61,9 +63,6 @@
   };
 
   cleanExternalAudio();
-
-  const observer = new MutationObserver(() => cleanExternalAudio());
-  observer.observe(document.body, { childList: true, subtree: true });
 
   const renderPlaylist = () => {
     playlistList.innerHTML = playlist
@@ -150,5 +149,41 @@
     updateDisplay();
   });
 
-  loadTrack(currentIndex, true);
+  const initDisplay = () => {
+    const current = playlist[currentIndex];
+    trackName.textContent = current.title;
+    statusText.textContent = "Aguardando entrada";
+    playBtn.textContent = "Reproduzir";
+    renderPlaylist();
+  };
+
+  const showSwitcher = () => {
+    if (hasEntered) {
+      return;
+    }
+    hasEntered = true;
+    container.classList.add("music-switcher--visible");
+    container.classList.remove("music-switcher--hidden");
+    cleanExternalAudio();
+    loadTrack(currentIndex, false);
+  };
+
+  const checkEntry = () => {
+    if (hasEntered) {
+      return;
+    }
+    const overlay = document.querySelector(".enter-screen");
+    if (!overlay) {
+      showSwitcher();
+    }
+  };
+
+  const observer = new MutationObserver(() => {
+    cleanExternalAudio();
+    checkEntry();
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+  checkEntry();
+
+  initDisplay();
 })();

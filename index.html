@@ -101,14 +101,14 @@
       }
       #music-switcher {
         position: fixed;
-        bottom: 6.5rem;
-        left: 50%;
-        transform: translateX(-50%);
+        top: 50%;
+        left: 2rem;
+        transform: translate(-130%, -50%);
         background: rgba(5, 5, 5, 0.85);
         border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 1.5rem;
         padding: 0.75rem 1rem;
-        max-width: min(340px, 90vw);
+        max-width: min(320px, 90vw);
         font-size: 0.85rem;
         color: #fff;
         display: flex;
@@ -116,8 +116,21 @@
         gap: 0.5rem;
         z-index: 90;
         backdrop-filter: blur(14px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.75);
         font-family: var(--font-sans, "Inter", system-ui, sans-serif);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.6s ease, opacity 0.6s ease;
+      }
+      #music-switcher.music-switcher--visible {
+        transform: translate(0, -50%);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      #music-switcher.music-switcher--hidden {
+        transform: translate(-130%, -50%);
+        opacity: 0;
+        pointer-events: none;
       }
       #music-switcher span,
       #music-switcher strong {
@@ -174,8 +187,17 @@
       }
       @media (max-width: 640px) {
         #music-switcher {
+          top: auto;
           bottom: 4rem;
-          padding: 0.65rem 0.85rem;
+          left: 50%;
+          transform: translate(-50%, 100%);
+          max-width: 90vw;
+        }
+        #music-switcher.music-switcher--visible {
+          transform: translate(-50%, 0);
+        }
+        #music-switcher.music-switcher--hidden {
+          transform: translate(-50%, 100%);
         }
         .details-section {
           padding: 3rem 1rem 4rem;
@@ -224,12 +246,13 @@
         </section>
       </div>
     </div>
-    <div
-      id="music-switcher"
-      role="region"
-      aria-live="polite"
-      aria-label="Player de trilha sonora"
-    >
+      <div
+        id="music-switcher"
+        class="music-switcher music-switcher--hidden"
+        role="region"
+        aria-live="polite"
+        aria-label="Player de trilha sonora"
+      >
       <div>
         <span class="music-switcher__label">Agora tocando</span>
         <strong data-track-name>DJ MU540 — Submundo 808</strong>
