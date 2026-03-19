@@ -1,15 +1,15 @@
 ﻿# Portfólio — Dukis
 
-Bem-vindo ao meu portfólio pessoal. Este projeto é uma landing page moderna e direta para apresentar trabalhos, habilidades e presença digital.
+Portfólio pessoal com fundo em MP4, rolagem livre e player lateral limpo.
 
 ## Destaques
-- Visual escuro com brilho suave e trilha sonora controlada.
-- Fundo em vídeo (Anime 4K) e overlay minimalista antes de entrar.
-- Layout responsivo com detalhes de contato e créditos fixos.
+- Fundo em vídeo 4K fixo durante toda a navegação.
+- Layout limpo, sem overlay de entrada e sem widgets da aplicação antiga.
+- Player lateral com faixa principal DJ MU540, play/pause e controle de volume.
 
 ## Tecnologias
 - HTML5
-- CSS (Tailwind build)
+- CSS
 - JavaScript
 
 ## Como rodar localmente
@@ -31,12 +31,12 @@ Servidor padrão: `http://localhost:5173`
 
 ## Estrutura
 - `index.html`
-- `assets/`
+- `player.js`
 - `serve.js`
 - `serve.ps1`
 - `serve.bat`
-- `player.js`
 - `Live Wallpaper Anime HD_4K - Samurai Autumn - LoveLiveWallpaper (2160p, av1, youtube).mp4`
+- `DJ MU540  Submundo 808 DJ SET  Campinas_SP - SUBMUNDO 808 (youtube).mp3`
 
 ## Créditos e Contato
 - Email: `marcosxxt658@gmail.com`
@@ -44,12 +44,11 @@ Servidor padrão: `http://localhost:5173`
 - Instagram: `@marcos_xll77`
 
 ## Player e experiência
-- Clique em "Clique para entrar" para liberar o player, então o painel aparecerá no canto esquerdo.
-- Apenas DJ MU540 — Submundo 808 é carregado e começa a tocar após você apertar `Reproduzir`.
-- Outros players/mídias são pausados automaticamente para evitar sobreposição de áudio.
-- Use o slider de volume no painel para ajustar o áudio sem precisar mexer no sistema.
-- Role a página até a seção “Detalhes extras”: ela garante rolagem e documenta stack, processo e a narrativa sonora por trás do site.
-- O vídeo `Live Wallpaper Anime HD_4K - Samurai Autumn - LoveLiveWallpaper…` serve como pano de fundo contínuo enquanto você rola a página.
+- O player fica visível sem clique inicial.
+- Apenas a faixa DJ MU540 é carregada.
+- O slider ajusta o volume em tempo real.
+- Outras mídias são pausadas para evitar áudio sobreposto.
+- A página rola normalmente com seções extras de conteúdo.
 
 ---
 

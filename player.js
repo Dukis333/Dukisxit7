@@ -1,5 +1,5 @@
-/*
-  Créditos:
+﻿/*
+  Creditos:
   Email: marcosxxt658@gmail.com
   WhatsApp: https://wa.me/5593981160223
   Instagram: @marcos_xll77
@@ -9,33 +9,23 @@
   audio.preload = "auto";
   audio.volume = 0.35;
 
-  const overlay = document.getElementById("enter-overlay");
-  const enterButton = document.getElementById("enter-button");
-  const playerPanel = document.getElementById("player-panel");
+  const panel = document.getElementById("player-panel");
   const toggleButton = document.getElementById("player-toggle");
   const status = document.getElementById("player-status");
   const volumeInput = document.getElementById("player-volume");
 
-  if (!overlay || !enterButton || !playerPanel || !toggleButton || !status) {
+  if (!panel || !toggleButton || !status || !volumeInput) {
     return;
   }
 
-  document.body.style.overflow = "hidden";
+  panel.classList.add("player-panel--visible");
 
-  const showPlayer = () => {
-    playerPanel.classList.add("player-panel--visible");
-    overlay.classList.add("hidden");
-    overlay.style.display = "none";
-    document.body.style.overflow = "auto";
-    status.textContent = "Pronto para tocar";
-  };
+  let isPlaying = false;
 
   const updateStatus = () => {
     status.textContent = isPlaying ? "Tocando" : "Pausado";
     toggleButton.textContent = isPlaying ? "Pausar" : "Reproduzir";
   };
-
-  let isPlaying = false;
 
   const stopExternalMedia = (event) => {
     const target = event.target;
@@ -53,7 +43,6 @@
       audio.pause();
       return;
     }
-    stopExternalMedia({ target: audio });
     audio
       .play()
       .then(() => {
@@ -61,18 +50,11 @@
         updateStatus();
       })
       .catch(() => {
-        status.textContent = "Permita o áudio antes de tocar";
+        status.textContent = "Permita o audio no navegador";
       });
   };
 
-  enterButton.addEventListener("click", () => {
-    showPlayer();
-    togglePlay();
-  });
-
-  toggleButton.addEventListener("click", () => {
-    togglePlay();
-  });
+  toggleButton.addEventListener("click", togglePlay);
 
   audio.addEventListener("play", () => {
     isPlaying = true;
@@ -89,14 +71,13 @@
     updateStatus();
   });
 
-  document.addEventListener("play", stopExternalMedia, true);
+  volumeInput.addEventListener("input", (event) => {
+    const value = Number(event.target.value);
+    if (!Number.isNaN(value)) {
+      audio.volume = value;
+    }
+  });
 
-  if (volumeInput) {
-    volumeInput.addEventListener("input", (event) => {
-      const value = Number(event.target.value);
-      if (!Number.isNaN(value)) {
-        audio.volume = value;
-      }
-    });
-  }
+  document.addEventListener("play", stopExternalMedia, true);
+  updateStatus();
 })();
