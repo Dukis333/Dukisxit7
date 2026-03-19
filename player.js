@@ -33,6 +33,9 @@
     if (target === audio) {
       return;
     }
+    if (target instanceof HTMLVideoElement) {
+      return;
+    }
     if (target instanceof HTMLMediaElement) {
       target.pause();
       target.currentTime = 0;
@@ -59,6 +62,21 @@
   toggleButton.addEventListener("click", () => {
     togglePlay();
   });
+
+  // Inicia o áudio no primeiro clique do usuário (ex.: botão de entrar).
+  document.addEventListener(
+    "click",
+    (event) => {
+      const target = event.target;
+      if (target instanceof Element && target.closest("#player-panel")) {
+        return;
+      }
+      if (!isPlaying) {
+        togglePlay();
+      }
+    },
+    { capture: true, once: true }
+  );
 
   audio.addEventListener("play", () => {
     isPlaying = true;
