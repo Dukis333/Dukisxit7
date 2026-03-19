@@ -65,6 +65,21 @@
 
   cleanExternalAudio();
 
+  document.addEventListener(
+    "play",
+    (event) => {
+      const target = event.target;
+      if (target === audio) {
+        return;
+      }
+      if (target instanceof HTMLMediaElement) {
+        target.pause();
+        target.currentTime = 0;
+      }
+    },
+    true
+  );
+
   const renderPlaylist = () => {
     playlistList.innerHTML = playlist
       .map(
