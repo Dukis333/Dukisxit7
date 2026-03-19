@@ -262,6 +262,61 @@
       #root .bg-blue-500\/10.rounded-full.p-1.border.border-blue-500\/20 svg {
         animation: verifiedGlow 2.2s ease-in-out infinite;
       }
+      @keyframes socialIconFloat {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-2px);
+        }
+      }
+      .social-quick {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.6rem;
+        margin-top: 0.25rem;
+      }
+      .social-quick__item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.65rem 0.7rem;
+        border-radius: 0.85rem;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.04);
+        color: rgba(255, 255, 255, 0.92);
+        text-decoration: none;
+        transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      }
+      .social-quick__item:hover {
+        transform: translateY(-2px);
+        border-color: rgba(255, 255, 255, 0.28);
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .social-quick__icon {
+        width: 1.6rem;
+        height: 1.6rem;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        font-size: 0.85rem;
+        background: rgba(255, 255, 255, 0.12);
+        animation: socialIconFloat 2.2s ease-in-out infinite;
+      }
+      .social-quick__label {
+        font-size: 0.66rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-weight: 700;
+        line-height: 1;
+      }
+      .social-quick__value {
+        font-size: 0.64rem;
+        line-height: 1.2;
+        color: rgba(255, 255, 255, 0.68);
+      }
       footer {
         z-index: 60;
       }
@@ -398,6 +453,115 @@
         >@marcos_xll77</a
       >
     </footer>
+    <script>
+      (function customizeProfileLinks() {
+        const links = [
+          {
+            label: "Discord",
+            value: "dukis_xll",
+            icon: "🎮",
+            copyValue: "dukis_xll",
+          },
+          {
+            label: "WhatsApp",
+            value: "Falar agora",
+            icon: "💬",
+            href: "https://wa.me/5593981160223",
+          },
+          {
+            label: "Instagram",
+            value: "@marcos_xll77",
+            icon: "📸",
+            href: "https://instagram.com/marcos_xll77",
+          },
+          {
+            label: "Twitch",
+            value: "dukis_xl",
+            icon: "📺",
+            href: "https://www.twitch.tv/dukis_xl",
+          },
+        ];
+
+        function makeItem(item) {
+          const anchor = document.createElement("a");
+          anchor.className = "social-quick__item";
+          anchor.href = item.href || "#";
+          anchor.target = item.href ? "_blank" : "_self";
+          anchor.rel = item.href ? "noreferrer" : "";
+
+          if (item.copyValue) {
+            anchor.addEventListener("click", async (event) => {
+              event.preventDefault();
+              try {
+                await navigator.clipboard.writeText(item.copyValue);
+                anchor.title = "Copiado!";
+                setTimeout(() => {
+                  anchor.title = "";
+                }, 1200);
+              } catch (error) {
+                anchor.title = item.copyValue;
+              }
+            });
+          }
+
+          const icon = document.createElement("span");
+          icon.className = "social-quick__icon";
+          icon.textContent = item.icon;
+          icon.setAttribute("aria-hidden", "true");
+
+          const textWrap = document.createElement("span");
+          textWrap.style.display = "flex";
+          textWrap.style.flexDirection = "column";
+          textWrap.style.gap = "0.15rem";
+
+          const label = document.createElement("span");
+          label.className = "social-quick__label";
+          label.textContent = item.label;
+
+          const value = document.createElement("span");
+          value.className = "social-quick__value";
+          value.textContent = item.value;
+
+          textWrap.append(label, value);
+          anchor.append(icon, textWrap);
+          return anchor;
+        }
+
+        function apply() {
+          const root = document.getElementById("root");
+          if (!root) return;
+
+          const githubHighlight = Array.from(root.querySelectorAll("a")).find((anchor) =>
+            /GitHub do Dukis/i.test(anchor.textContent || "")
+          );
+
+          if (!githubHighlight || !githubHighlight.parentElement) return;
+
+          const parent = githubHighlight.parentElement;
+          let socialQuick = parent.querySelector('[data-social-quick="true"]');
+
+          if (!socialQuick) {
+            socialQuick = document.createElement("div");
+            socialQuick.className = "social-quick";
+            socialQuick.setAttribute("data-social-quick", "true");
+            links.forEach((item) => socialQuick.appendChild(makeItem(item)));
+            parent.insertBefore(socialQuick, githubHighlight);
+          }
+
+          githubHighlight.remove();
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", apply);
+        } else {
+          apply();
+        }
+
+        const observer = new MutationObserver(apply);
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+        setTimeout(() => observer.disconnect(), 20000);
+      })();
+    </script>
     <script>
       (function removeProjectsSection() {
         function cleanProjects() {
