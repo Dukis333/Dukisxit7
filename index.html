@@ -28,6 +28,12 @@
         --player-accent: #00ffff;
         --font-sans: "Manrope", system-ui, sans-serif;
         --footer-clearance: 9rem;
+        --button-glow:
+          0 0 0 1px rgba(255, 255, 255, 0.12),
+          0 0 14px rgba(255, 255, 255, 0.2);
+        --button-glow-hover:
+          0 0 0 1px rgba(255, 255, 255, 0.22),
+          0 0 18px rgba(255, 255, 255, 0.3);
       }
       html,
       body {
@@ -43,6 +49,13 @@
         background: var(--site-bg);
         color: var(--site-text);
         font-family: var(--font-sans, "Inter", system-ui, sans-serif);
+      }
+      button {
+        box-shadow: var(--button-glow);
+        transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
+      }
+      button:hover {
+        box-shadow: var(--button-glow-hover);
       }
       #background-video {
         position: fixed;
@@ -89,9 +102,6 @@
         text-transform: uppercase;
         cursor: pointer;
         backdrop-filter: blur(10px);
-        box-shadow:
-          0 0 0 1px rgba(255, 255, 255, 0.15),
-          0 0 16px rgba(255, 255, 255, 0.22);
       }
       .player-panel--visible {
         transform: translate(0, -50%);
@@ -121,9 +131,6 @@
         text-transform: uppercase;
         cursor: pointer;
         transition: background 0.2s ease;
-        box-shadow:
-          0 0 0 1px rgba(255, 255, 255, 0.12),
-          0 0 12px rgba(255, 255, 255, 0.16);
       }
       .player-panel button:hover {
         background: rgba(255, 255, 255, 0.15);
