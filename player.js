@@ -20,9 +20,13 @@
     return;
   }
 
+  document.body.style.overflow = "hidden";
+
   const showPlayer = () => {
     playerPanel.classList.add("player-panel--visible");
     overlay.classList.add("hidden");
+    overlay.style.display = "none";
+    document.body.style.overflow = "auto";
     status.textContent = "Pronto para tocar";
   };
 

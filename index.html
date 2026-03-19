@@ -200,6 +200,46 @@
         flex-direction: column;
         gap: 0.25rem;
       }
+      .scroll-section {
+        margin-top: 2rem;
+        padding: 2rem 1.25rem 3rem;
+        border-radius: 1.25rem;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+      }
+      .scroll-section h3 {
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.36em;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.65);
+      }
+      .scroll-section p {
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.6;
+        margin-bottom: 1rem;
+      }
+      .scroll-section__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+      }
+      .scroll-section__grid article {
+        padding: 1rem;
+        border-radius: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.02);
+        line-height: 1.5;
+      }
+      .scroll-section__grid strong {
+        display: block;
+        margin-bottom: 0.35rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.7);
+      }
       footer {
         z-index: 60;
       }
@@ -254,8 +294,8 @@
           <div class="details-grid">
             <article class="detail-card">
               <h3 id="info-heading">Dev Fullstack</h3>
-              <p>Dev fullstack em constante evolução, entregando experiências imersivas com áudio, vídeo e automação.</p>
-              <p>O site é construído para destacar habilidades de front-end com camadas de mídia avançadas.</p>
+              <p>Faço front e back com foco em experiências imersivas que combinam vídeo e áudio sob controle do usuário.</p>
+              <p>Minha abordagem evita disparos automáticos até que o visitante toque para liberar o som.</p>
             </article>
             <article class="detail-card">
               <h3>Créditos</h3>
@@ -267,8 +307,28 @@
             </article>
             <article class="detail-card">
               <h3>Mais informações</h3>
-              <p>Role para baixo para ver o conteúdo complementar e os contatos.</p>
-              <p>A reprodução fica bloqueada até você dizer "entrar".</p>
+              <p>Role para baixo para ver o conteúdo complementar e os contatos fixos.</p>
+              <p>O overlay some e o player permanece fixo para você continuar navegando.</p>
+            </article>
+          </div>
+        </section>
+        <section class="scroll-section">
+          <h3>Detalhes extras</h3>
+          <p>
+            Navegue por esta seção para forçar a rolagem: ela fala sobre metodologia, stack e narrativa sonora.
+          </p>
+          <div class="scroll-section__grid">
+            <article>
+              <strong>Stack</strong>
+              <p>React + Tailwind + Node em um servidor que entende mídia e experiência rica.</p>
+            </article>
+            <article>
+              <strong>Processo</strong>
+              <p>Prototipo com atenção a performance, animações suaves e controle de volume manual.</p>
+            </article>
+            <article>
+              <strong>Marca</strong>
+              <p>Foco em presença digital que se move enquanto o visitante explora cada seção.</p>
             </article>
           </div>
         </section>
