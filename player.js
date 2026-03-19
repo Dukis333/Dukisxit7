@@ -9,17 +9,26 @@
   audio.preload = "auto";
   audio.volume = 0.35;
 
+  const overlay = document.getElementById("enter-overlay");
+  const enterButton = document.getElementById("enter-button");
   const playerPanel = document.getElementById("player-panel");
   const toggleButton = document.getElementById("player-toggle");
   const status = document.getElementById("player-status");
   const volumeInput = document.getElementById("player-volume");
 
-  if (!playerPanel || !toggleButton || !status || !volumeInput) {
+  if (!overlay || !enterButton || !playerPanel || !toggleButton || !status) {
     return;
   }
 
-  playerPanel.classList.add("player-panel--visible");
-  status.textContent = "Pronto para tocar";
+  document.body.style.overflow = "hidden";
+
+  const showPlayer = () => {
+    playerPanel.classList.add("player-panel--visible");
+    overlay.classList.add("hidden");
+    overlay.style.display = "none";
+    document.body.style.overflow = "auto";
+    status.textContent = "Pronto para tocar";
+  };
 
   const updateStatus = () => {
     status.textContent = isPlaying ? "Tocando" : "Pausado";
@@ -55,6 +64,11 @@
         status.textContent = "Permita o áudio antes de tocar";
       });
   };
+
+  enterButton.addEventListener("click", () => {
+    showPlayer();
+    togglePlay();
+  });
 
   toggleButton.addEventListener("click", () => {
     togglePlay();
