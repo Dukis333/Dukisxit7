@@ -49,7 +49,10 @@
     panelOpen: false,
     didSmoothStart: false,
     fadeRaf: null,
+    playAttemptInFlight: false,
+    unlockListenersAttached: false,
   };
+  const unlockEvents = ["pointerdown", "click", "keydown", "touchstart"];
 
   const audio = new Audio(SETTINGS.audioSrc);
   audio.preload = "auto";
@@ -69,6 +72,51 @@
     ui.panel.classList.toggle("player-panel--visible", state.panelOpen);
     ui.tabButton.setAttribute("aria-expanded", String(state.panelOpen));
     ui.tabButton.textContent = state.panelOpen ? "Fechar música" : "Abrir música";
+  }
+
+  function onVisibilityWake() {
+    if (document.visibilityState === "visible") {
+      handleUserUnlock();
+    }
+  }
+
+  function removeUserUnlockListeners() {
+    if (!state.unlockListenersAttached) {
+      return;
+    }
+
+    unlockEvents.forEach((eventName) => {
+      document.removeEventListener(eventName, handleUserUnlock, true);
+    });
+    document.removeEventListener("visibilitychange", onVisibilityWake);
+    window.removeEventListener("focus", handleUserUnlock, true);
+    state.unlockListenersAttached = false;
+  }
+
+  function ensureUserUnlockListeners() {
+    if (!SETTINGS.autoPlayOnFirstUserClick || state.unlockListenersAttached) {
+      return;
+    }
+
+    unlockEvents.forEach((eventName) => {
+      document.addEventListener(eventName, handleUserUnlock, true);
+    });
+    document.addEventListener("visibilitychange", onVisibilityWake);
+    window.addEventListener("focus", handleUserUnlock, true);
+    state.unlockListenersAttached = true;
+  }
+
+  function handleUserUnlock() {
+    if (state.isPlaying) {
+      removeUserUnlockListeners();
+      return;
+    }
+
+    playAudio().then((didPlay) => {
+      if (didPlay) {
+        removeUserUnlockListeners();
+      }
+    });
   }
 
   function stopOtherMedia(event) {
@@ -132,6 +180,11 @@
   }
 
   async function playAudio() {
+    if (state.playAttemptInFlight) {
+      return false;
+    }
+
+    state.playAttemptInFlight = true;
     stopOtherMedia({ target: audio });
 
     try {
@@ -142,10 +195,15 @@
       } else {
         audio.muted = false;
       }
+      return true;
     } catch (error) {
       // Evita mensagem de bloqueio; mantem estado e tenta novamente no proximo gatilho.
       state.isPlaying = false;
       updateUi();
+      ensureUserUnlockListeners();
+      return false;
+    } finally {
+      state.playAttemptInFlight = false;
     }
   }
 
@@ -190,34 +248,22 @@
       .catch(() => {
         audio.muted = false;
         audio.volume = getTargetVolume();
+        ensureUserUnlockListeners();
       });
   })();
 
   ui.tabButton.addEventListener("click", togglePanel);
   ui.toggleButton.addEventListener("click", togglePlay);
 
-  // Ao clicar em "Entrar", o primeiro clique libera e inicia o audio.
+  // Mantem tentativas de desbloqueio por interacao ate o audio tocar.
   if (SETTINGS.autoPlayOnFirstUserClick) {
-    document.addEventListener(
-      "click",
-      (event) => {
-        const target = event.target;
-        // Evita disparo duplo quando o clique foi no botao principal de play/pause.
-        if (target instanceof Element && target.closest("#player-toggle")) {
-          return;
-        }
-
-        if (!state.isPlaying) {
-          playAudio();
-        }
-      },
-      { capture: true, once: true }
-    );
+    ensureUserUnlockListeners();
   }
 
   audio.addEventListener("play", () => {
     state.isPlaying = true;
     updateUi();
+    removeUserUnlockListeners();
   });
 
   audio.addEventListener("pause", () => {
