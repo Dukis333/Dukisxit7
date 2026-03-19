@@ -136,6 +136,20 @@
         opacity: 0.7;
         margin-top: 0.35rem;
       }
+      .player-panel__volume {
+        margin-top: 0.65rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.65rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .player-panel__volume input {
+        flex: 1;
+        accent-color: #0ff;
+      }
       .page-shell {
         position: relative;
         width: 100%;
@@ -228,6 +242,10 @@
       <strong>DJ MU540 — Submundo 808</strong>
       <button type="button" id="player-toggle">Reproduzir</button>
       <span class="player-panel__status" id="player-status">Aguardando entrada</span>
+      <div class="player-panel__volume">
+        <span>Volume</span>
+        <input type="range" min="0" max="1" step="0.01" id="player-volume" value="0.35" />
+      </div>
     </div>
     <div class="page-shell">
       <div class="page-shell__content">

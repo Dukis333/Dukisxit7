@@ -14,6 +14,7 @@
   const playerPanel = document.getElementById("player-panel");
   const toggleButton = document.getElementById("player-toggle");
   const status = document.getElementById("player-status");
+  const volumeInput = document.getElementById("player-volume");
 
   if (!overlay || !enterButton || !playerPanel || !toggleButton || !status) {
     return;
@@ -84,4 +85,13 @@
   });
 
   document.addEventListener("play", stopExternalMedia, true);
+
+  if (volumeInput) {
+    volumeInput.addEventListener("input", (event) => {
+      const value = Number(event.target.value);
+      if (!Number.isNaN(value)) {
+        audio.volume = value;
+      }
+    });
+  }
 })();

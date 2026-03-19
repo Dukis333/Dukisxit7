@@ -47,6 +47,7 @@ Servidor padrão: `http://localhost:5173`
 - Clique em "Clique para entrar" para liberar o player, então o painel aparecerá no canto esquerdo.
 - Apenas DJ MU540 — Submundo 808 é carregado e começa a tocar após você apertar `Reproduzir`.
 - Outros players/mídias são pausados automaticamente para evitar sobreposição de áudio.
+- Use o slider de volume no painel para ajustar o áudio sem precisar mexer no sistema.
 - O vídeo `Live Wallpaper Anime HD_4K - Samurai Autumn - LoveLiveWallpaper…` serve como pano de fundo contínuo enquanto você rola a página.
 
 ---
