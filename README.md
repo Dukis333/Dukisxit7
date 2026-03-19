@@ -4,7 +4,7 @@ Bem-vindo ao meu portfólio pessoal. Este projeto é uma landing page moderna e 
 
 ## Destaques
 - Visual escuro com brilho suave e trilha sonora controlada.
-- Fundo em vídeo (Anime 4K) e overlay minimalista antes de entrar.
+- Fundo em vídeo (Anime 4K) ativo desde o carregamento.
 - Layout responsivo com detalhes de contato e créditos fixos.
 
 ## Tecnologias
@@ -44,7 +44,7 @@ Servidor padrão: `http://localhost:5173`
 - Instagram: `@marcos_xll77`
 
 ## Player e experiência
-- Clique em "Clique para entrar" para liberar o player, então o painel aparecerá no canto esquerdo.
+- O player já aparece no canto esquerdo sem etapa inicial de entrada.
 - Apenas DJ MU540 — Submundo 808 é carregado e começa a tocar após você apertar `Reproduzir`.
 - Outros players/mídias são pausados automaticamente para evitar sobreposição de áudio.
 - Use o slider de volume no painel para ajustar o áudio sem precisar mexer no sistema.
