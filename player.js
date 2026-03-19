@@ -10,13 +10,12 @@
   audio.volume = 0.35;
 
   const overlay = document.getElementById("enter-overlay");
-  const enterButton = document.getElementById("enter-button");
   const playerPanel = document.getElementById("player-panel");
   const toggleButton = document.getElementById("player-toggle");
   const status = document.getElementById("player-status");
   const volumeInput = document.getElementById("player-volume");
 
-  if (!overlay || !enterButton || !playerPanel || !toggleButton || !status) {
+  if (!overlay || !playerPanel || !toggleButton || !status) {
     return;
   }
 
@@ -65,7 +64,7 @@
       });
   };
 
-  enterButton.addEventListener("click", () => {
+  overlay.addEventListener("click", () => {
     showPlayer();
     togglePlay();
   });
