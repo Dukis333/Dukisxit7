@@ -71,6 +71,25 @@
         opacity: 0;
         pointer-events: none;
       }
+      .player-tab {
+        position: fixed;
+        top: 50%;
+        left: 0.75rem;
+        transform: translateY(-50%);
+        z-index: 95;
+      }
+      .player-tab button {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(5, 5, 5, 0.86);
+        color: #fff;
+        border-radius: 999px;
+        padding: 0.55rem 0.9rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        cursor: pointer;
+        backdrop-filter: blur(10px);
+      }
       .player-panel--visible {
         transform: translate(0, -50%);
         opacity: 1;
@@ -221,15 +240,38 @@
         z-index: 60;
       }
       @media (max-width: 768px) {
-        .player-panel {
+        .player-tab {
+          top: auto;
           left: 50%;
-          transform: translate(-50%, 30%);
+          bottom: calc(var(--footer-clearance) + 0.5rem);
+          transform: translateX(-50%);
+        }
+        .player-panel {
+          top: auto;
+          left: 50%;
+          bottom: calc(var(--footer-clearance) + 3.9rem);
+          width: min(92vw, 320px);
+          transform: translate(-50%, 130%);
         }
         .player-panel--visible {
-          transform: translate(-50%, -50%);
+          transform: translate(-50%, 0);
+        }
+        .details-grid {
+          gap: 1rem;
         }
         .details-section {
           padding: 3rem 1rem 4rem;
+        }
+        .scroll-section {
+          margin-top: 1.25rem;
+          padding: 1.35rem 0.95rem 2.1rem;
+        }
+        footer[aria-label="Créditos"] {
+          bottom: 0.45rem !important;
+          max-width: 96vw !important;
+          padding: 0.45rem 0.7rem !important;
+          gap: 0.35rem !important;
+          font-size: 0.68rem !important;
         }
       }
     </style>
@@ -240,7 +282,10 @@
     <video id="background-video" autoplay muted loop playsinline aria-hidden="true">
       <source src="./Live Wallpaper Anime HD_4K - Samurai Autumn - LoveLiveWallpaper (2160p, av1, youtube).mp4" type="video/mp4" />
     </video>
-    <div class="player-panel player-panel--visible" id="player-panel">
+    <div class="player-tab">
+      <button type="button" id="player-tab" aria-expanded="false" aria-controls="player-panel">Abrir música</button>
+    </div>
+    <div class="player-panel" id="player-panel">
       <h2>Trilha sonora</h2>
       <!-- Titulo visual da faixa principal -->
       <strong>DJ MU540 — Submundo 808</strong>

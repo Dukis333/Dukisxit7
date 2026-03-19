@@ -34,17 +34,19 @@
 
   const ui = {
     panel: document.getElementById("player-panel"),
+    tabButton: document.getElementById("player-tab"),
     toggleButton: document.getElementById("player-toggle"),
     status: document.getElementById("player-status"),
     volumeInput: document.getElementById("player-volume"),
   };
 
-  if (!ui.panel || !ui.toggleButton || !ui.status || !ui.volumeInput) {
+  if (!ui.panel || !ui.tabButton || !ui.toggleButton || !ui.status || !ui.volumeInput) {
     return;
   }
 
   const state = {
     isPlaying: false,
+    panelOpen: false,
   };
 
   const audio = new Audio(SETTINGS.audioSrc);
@@ -59,6 +61,12 @@
     ui.toggleButton.textContent = state.isPlaying
       ? SETTINGS.labels.pauseButton
       : SETTINGS.labels.playButton;
+  }
+
+  function updatePanelUi() {
+    ui.panel.classList.toggle("player-panel--visible", state.panelOpen);
+    ui.tabButton.setAttribute("aria-expanded", String(state.panelOpen));
+    ui.tabButton.textContent = state.panelOpen ? "Fechar música" : "Abrir música";
   }
 
   function stopOtherMedia(event) {
@@ -100,9 +108,15 @@
     playAudio();
   }
 
-  ui.panel.classList.add("player-panel--visible");
+  function togglePanel() {
+    state.panelOpen = !state.panelOpen;
+    updatePanelUi();
+  }
+
+  updatePanelUi();
   updateUi();
 
+  ui.tabButton.addEventListener("click", togglePanel);
   ui.toggleButton.addEventListener("click", togglePlay);
 
   // Ao clicar em "Entrar", o primeiro clique libera e inicia o audio.
@@ -112,7 +126,7 @@
       (event) => {
         const target = event.target;
         // Evita disparo duplo quando o clique foi no proprio player.
-        if (target instanceof Element && target.closest("#player-panel")) {
+        if (target instanceof Element && target.closest("#player-panel, #player-tab")) {
           return;
         }
 
@@ -146,6 +160,13 @@
     const value = Number(event.target.value);
     if (!Number.isNaN(value)) {
       audio.volume = value;
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && state.panelOpen) {
+      state.panelOpen = false;
+      updatePanelUi();
     }
   });
 })();
