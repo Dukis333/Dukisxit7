@@ -15,7 +15,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet" />
-    <!-- Mantem somente o CSS utilitario legado; app antiga desativada para evitar texto corrompido -->
+    <!-- App antiga (React/Tailwind). Se quiser pagina 100% manual, remova estas 2 linhas. -->
+    <script type="module" crossorigin src="./assets/index-CUdt0hpo.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-Dt7S-A24.css" />
     <style>
       /* ===== BLOCO DE CUSTOMIZACAO RAPIDA ===== */
@@ -297,6 +298,8 @@
     </div>
     <div class="page-shell">
       <div class="page-shell__content">
+        <!-- Root da app antiga (React). -->
+        <div id="root"></div>
         <!-- Conteudo manual editavel -->
         <section class="details-section" aria-labelledby="info-heading">
           <div class="details-grid">
@@ -369,6 +372,36 @@
         >@marcos_xll77</a
       >
     </footer>
+    <script>
+      (function removeProjectsSection() {
+        function cleanProjects() {
+          document.querySelectorAll("button").forEach((button) => {
+            if (button.textContent && button.textContent.trim().toLowerCase() === "projetos") {
+              button.remove();
+            }
+          });
+
+          document.querySelectorAll("h2").forEach((heading) => {
+            if (heading.textContent && heading.textContent.trim().toLowerCase() === "projetos em destaque") {
+              const section = heading.closest("section");
+              if (section) {
+                section.remove();
+              }
+            }
+          });
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", cleanProjects);
+        } else {
+          cleanProjects();
+        }
+
+        const observer = new MutationObserver(cleanProjects);
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+        setTimeout(() => observer.disconnect(), 15000);
+      })();
+    </script>
     <script>
       (function adjustScrollForCredits() {
         function updateClearance() {
