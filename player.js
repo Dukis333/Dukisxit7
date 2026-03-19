@@ -18,7 +18,8 @@
 */
 (function initCustomPlayer() {
   const SETTINGS = {
-    audioSrc: "./DJ MU540  Submundo 808 DJ SET  Campinas_SP - SUBMUNDO 808 (youtube).mp3",
+    audioSrc:
+      "./Díario de um Cafajeste O amor não paga as conta MC's Lele JP, Ryan SP, Meno k,Negão Original, Tuto - MC Lele JP (youtube).mp3",
     initialVolume: 0.35,
     autoPlayOnFirstUserClick: true,
     // Mantem o video de fundo rodando e evita pausar ele.
