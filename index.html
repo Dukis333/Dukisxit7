@@ -1,11 +1,11 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Portfólio pessoal de Dukis — projetos, habilidades e presença digital."
+      content="Portfólio pessoal de Dukis — projetos, habilidades e presença digital com trilha sonora personalizada."
     />
     <title>Dukis | Portfolio</title>
     <script type="module" crossorigin src="./assets/index-CUdt0hpo.js"></script>
@@ -14,10 +14,15 @@
       :root {
         color-scheme: dark;
       }
+      *, *::before, *::after {
+        box-sizing: border-box;
+      }
       body {
+        margin: 0;
         min-height: 100vh;
         background: #050505;
         color: #fff;
+        font-family: var(--font-sans, "Inter", system-ui, sans-serif);
       }
       #background-video {
         position: fixed;
@@ -25,10 +30,111 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        opacity: 0.55;
+        opacity: 0.6;
         z-index: 0;
-        filter: saturate(1.2);
+        filter: saturate(1.05) contrast(1.1);
         pointer-events: none;
+      }
+      .enter-overlay {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.85));
+        z-index: 80;
+        transition: opacity 0.6s ease;
+      }
+      .enter-overlay.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .enter-overlay__card {
+        background: rgba(10, 10, 10, 0.95);
+        border-radius: 1.75rem;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 35px 80px rgba(0, 0, 0, 0.65);
+        max-width: 360px;
+      }
+      .enter-overlay__card p {
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.75);
+      }
+      .enter-overlay__card button {
+        border: none;
+        background: linear-gradient(135deg, #ff5f6d, #ffc371);
+        color: #050505;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        padding: 0.95rem 1.5rem;
+        border-radius: 999px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .enter-overlay__card button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+      }
+      .player-panel {
+        position: fixed;
+        top: 50%;
+        left: 1rem;
+        transform: translate(-140%, -50%);
+        background: rgba(5, 5, 5, 0.9);
+        border-radius: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 1.25rem;
+        z-index: 90;
+        width: min(280px, 80vw);
+        box-shadow: 0 20px 35px rgba(0, 0, 0, 0.6);
+        transition: transform 0.7s ease, opacity 0.7s ease;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .player-panel--visible {
+        transform: translate(0, -50%);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .player-panel h2 {
+        margin: 0 0 0.35rem;
+        font-size: 0.9rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+      }
+      .player-panel strong {
+        display: block;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+      }
+      .player-panel button {
+        width: 100%;
+        border: none;
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        padding: 0.65rem 0;
+        border-radius: 0.85rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+      .player-panel button:hover {
+        background: rgba(255, 255, 255, 0.15);
+      }
+      .player-panel .player-panel__status {
+        font-size: 0.75rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        opacity: 0.7;
+        margin-top: 0.35rem;
       }
       .page-shell {
         position: relative;
@@ -36,35 +142,16 @@
         min-height: 100vh;
         z-index: 1;
       }
-      .page-shell__content {
-        position: relative;
-        z-index: 3;
-      }
-      .page-shell::after {
-        content: "";
-        position: fixed;
-        inset: 0;
-        background: radial-gradient(circle at top, rgba(255, 255, 255, 0.05), transparent 45%),
-          linear-gradient(180deg, transparent 20%, rgba(5, 5, 5, 0.8) 60%, #050505 100%);
-        z-index: 2;
-        pointer-events: none;
-      }
-      #root {
-        position: relative;
-        z-index: 3;
-        min-height: 100vh;
-        background: transparent;
-      }
       .details-section {
         position: relative;
         z-index: 3;
         padding: 4rem 1.25rem 6rem;
         margin-top: -4rem;
-        background: rgba(5, 5, 5, 0.7);
-        box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.8);
+        background: rgba(5, 5, 5, 0.75);
+        box-shadow: 0 -20px 45px rgba(0, 0, 0, 0.85);
         border-top-left-radius: 1.5rem;
         border-top-right-radius: 1.5rem;
-        backdrop-filter: blur(18px);
+        backdrop-filter: blur(20px);
       }
       .details-grid {
         display: grid;
@@ -72,7 +159,7 @@
         gap: 1.5rem;
       }
       .detail-card {
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.12);
         border-radius: 1.25rem;
         padding: 1.25rem;
         background: rgba(255, 255, 255, 0.02);
@@ -83,13 +170,13 @@
         margin-bottom: 0.75rem;
         text-transform: uppercase;
         font-size: 0.75rem;
-        letter-spacing: 0.4em;
-        color: rgba(255, 255, 255, 0.65);
+        letter-spacing: 0.35em;
+        color: rgba(255, 255, 255, 0.7);
       }
       .detail-card p,
       .detail-card li {
         margin: 0;
-        color: rgba(255, 255, 255, 0.8);
+        color: rgba(255, 255, 255, 0.85);
       }
       .detail-card ul {
         list-style: none;
@@ -99,105 +186,16 @@
         flex-direction: column;
         gap: 0.25rem;
       }
-      #music-switcher {
-        position: fixed;
-        top: 50%;
-        left: 2rem;
-        transform: translate(-130%, -50%);
-        background: rgba(5, 5, 5, 0.85);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 1.5rem;
-        padding: 0.75rem 1rem;
-        max-width: min(320px, 90vw);
-        font-size: 0.85rem;
-        color: #fff;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-        z-index: 90;
-        backdrop-filter: blur(14px);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.75);
-        font-family: var(--font-sans, "Inter", system-ui, sans-serif);
-        opacity: 0;
-        pointer-events: none;
-        transition: transform 0.6s ease, opacity 0.6s ease;
+      footer {
+        z-index: 60;
       }
-      #music-switcher.music-switcher--visible {
-        transform: translate(0, -50%);
-        opacity: 1;
-        pointer-events: auto;
-      }
-      #music-switcher.music-switcher--hidden {
-        transform: translate(-130%, -50%);
-        opacity: 0;
-        pointer-events: none;
-      }
-      #music-switcher span,
-      #music-switcher strong {
-        display: block;
-      }
-      #music-switcher ul {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.45rem;
-        padding: 0;
-        margin: 0;
-        list-style: none;
-      }
-      #music-switcher li {
-        font-size: 0.65rem;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        padding: 0.2rem 0.45rem;
-        border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        cursor: pointer;
-        transition: border-color 0.2s ease, color 0.2s ease;
-      }
-      #music-switcher li.music-switcher__track--active {
-        color: #0ff;
-        border-color: currentColor;
-      }
-      #music-switcher button {
-        border: none;
-        background: rgba(255, 255, 255, 0.08);
-        color: #fff;
-        padding: 0.35rem 0.9rem;
-        border-radius: 999px;
-        cursor: pointer;
-        transition: background 0.2s ease, transform 0.2s ease;
-        font-size: 0.75rem;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-      }
-      #music-switcher button:hover {
-        background: rgba(255, 255, 255, 0.16);
-        transform: translateY(-1px);
-      }
-      #music-switcher .music-switcher__controls {
-        display: flex;
-        justify-content: center;
-        gap: 0.35rem;
-      }
-      #music-switcher .music-switcher__label {
-        opacity: 0.6;
-        font-size: 0.55rem;
-        letter-spacing: 0.25em;
-        text-transform: uppercase;
-      }
-      @media (max-width: 640px) {
-        #music-switcher {
-          top: auto;
-          bottom: 4rem;
+      @media (max-width: 768px) {
+        .player-panel {
           left: 50%;
-          transform: translate(-50%, 100%);
-          max-width: 90vw;
+          transform: translate(-50%, 30%);
         }
-        #music-switcher.music-switcher--visible {
-          transform: translate(-50%, 0);
-        }
-        #music-switcher.music-switcher--hidden {
-          transform: translate(-50%, 100%);
+        .player-panel--visible {
+          transform: translate(-50%, -50%);
         }
         .details-section {
           padding: 3rem 1rem 4rem;
@@ -206,28 +204,40 @@
     </style>
   </head>
   <body>
+    <video
+      id="background-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      aria-hidden="true"
+    >
+      <source
+        src="./Live Wallpaper Anime HD_4K - Samurai Autumn - LoveLiveWallpaper (2160p, av1, youtube).mp4"
+        type="video/mp4"
+      />
+    </video>
+    <div class="enter-overlay" id="enter-overlay">
+      <div class="enter-overlay__card">
+        <p>Bem-vindo ao universo Dukis</p>
+        <button id="enter-button" type="button">Clique para entrar</button>
+      </div>
+    </div>
+    <div class="player-panel player-panel--hidden" id="player-panel">
+      <h2>Trilha sonora</h2>
+      <strong>DJ MU540 — Submundo 808</strong>
+      <button type="button" id="player-toggle">Reproduzir</button>
+      <span class="player-panel__status" id="player-status">Aguardando entrada</span>
+    </div>
     <div class="page-shell">
-      <video
-        id="background-video"
-        autoplay
-        muted
-        loop
-        playsinline
-        aria-hidden="true"
-      >
-        <source
-          src="./Live Wallpaper Anime HD_4K - Samurai Autumn - LoveLiveWallpaper (2160p, av1, youtube).mp4"
-          type="video/mp4"
-        />
-      </video>
       <div class="page-shell__content">
         <div id="root"></div>
         <section class="details-section" aria-labelledby="info-heading">
           <div class="details-grid">
             <article class="detail-card">
-              <h3 id="info-heading">Sobre a faixa</h3>
-              <p>DJ MU540 — Submundo 808 entra como trilha principal e mantém a pegada energética da página.</p>
-              <p>As outras faixas ficam disponíveis abaixo do player, para alternar manualmente.</p>
+              <h3 id="info-heading">Sobre a trilha</h3>
+              <p>DJ MU540 — Submundo 808 mantém a energia do site e só começa após o clique.</p>
+              <p>O vídeo de fundo cria evento visual enquanto rola a página.</p>
             </article>
             <article class="detail-card">
               <h3>Créditos</h3>
@@ -239,31 +249,12 @@
             </article>
             <article class="detail-card">
               <h3>Mais informações</h3>
-              <p>A playlist apresenta energia urbana, encontros de FiveM, Valorant e vibes automação/paisagem sonora.</p>
-              <p>Rolando para baixo você encontra os créditos fixos e a documentação no README.</p>
+              <p>Role para baixo para ver o conteúdo complementar e os contatos.</p>
+              <p>A reprodução fica bloqueada até você dizer "entrar".</p>
             </article>
           </div>
         </section>
       </div>
-    </div>
-      <div
-        id="music-switcher"
-        class="music-switcher music-switcher--hidden"
-        role="region"
-        aria-live="polite"
-        aria-label="Player de trilha sonora"
-      >
-      <div>
-        <span class="music-switcher__label">Agora tocando</span>
-        <strong data-track-name>DJ MU540 — Submundo 808</strong>
-        <span data-status>Preparando a playlist...</span>
-      </div>
-      <div class="music-switcher__controls">
-        <button type="button" data-action="prev">Anterior</button>
-        <button type="button" data-action="play">Reproduzir</button>
-        <button type="button" data-action="next">Próxima</button>
-      </div>
-      <ul data-playlist aria-label="Lista de músicas"></ul>
     </div>
     <footer
       class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-full text-xs text-white/70 glass flex flex-wrap items-center gap-2"
@@ -291,6 +282,6 @@
         >@marcos_xll77</a
       >
     </footer>
-    <script src="./music-switcher.js" defer></script>
+    <script src="./player.js" defer></script>
   </body>
 </html>
