@@ -11,6 +11,94 @@
     <script type="module" crossorigin src="./assets/index-CUdt0hpo.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-Dt7S-A24.css" />
     <style>
+      :root {
+        color-scheme: dark;
+      }
+      body {
+        min-height: 100vh;
+        background: #050505;
+        color: #fff;
+      }
+      #background-video {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.55;
+        z-index: 0;
+        filter: saturate(1.2);
+        pointer-events: none;
+      }
+      .page-shell {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        z-index: 1;
+      }
+      .page-shell__content {
+        position: relative;
+        z-index: 3;
+      }
+      .page-shell::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(circle at top, rgba(255, 255, 255, 0.05), transparent 45%),
+          linear-gradient(180deg, transparent 20%, rgba(5, 5, 5, 0.8) 60%, #050505 100%);
+        z-index: 2;
+        pointer-events: none;
+      }
+      #root {
+        position: relative;
+        z-index: 3;
+        min-height: 100vh;
+        background: transparent;
+      }
+      .details-section {
+        position: relative;
+        z-index: 3;
+        padding: 4rem 1.25rem 6rem;
+        margin-top: -4rem;
+        background: rgba(5, 5, 5, 0.7);
+        box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.8);
+        border-top-left-radius: 1.5rem;
+        border-top-right-radius: 1.5rem;
+        backdrop-filter: blur(18px);
+      }
+      .details-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+      }
+      .detail-card {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 1.25rem;
+        padding: 1.25rem;
+        background: rgba(255, 255, 255, 0.02);
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+      .detail-card h3 {
+        margin-bottom: 0.75rem;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.4em;
+        color: rgba(255, 255, 255, 0.65);
+      }
+      .detail-card p,
+      .detail-card li {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.8);
+      }
+      .detail-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0.35rem 0 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
       #music-switcher {
         position: fixed;
         bottom: 6.5rem;
@@ -89,17 +177,53 @@
           bottom: 4rem;
           padding: 0.65rem 0.85rem;
         }
+        .details-section {
+          padding: 3rem 1rem 4rem;
+        }
       }
     </style>
   </head>
   <body>
-    <!--
-      Créditos:
-      Email: marcosxxt658@gmail.com
-      WhatsApp: https://wa.me/5593981160223
-      Instagram: @marcos_xll77
-    -->
-    <div id="root"></div>
+    <div class="page-shell">
+      <video
+        id="background-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        aria-hidden="true"
+      >
+        <source
+          src="./Live Wallpaper Anime HD_4K - Samurai Autumn - LoveLiveWallpaper (2160p, av1, youtube).mp4"
+          type="video/mp4"
+        />
+      </video>
+      <div class="page-shell__content">
+        <div id="root"></div>
+        <section class="details-section" aria-labelledby="info-heading">
+          <div class="details-grid">
+            <article class="detail-card">
+              <h3 id="info-heading">Sobre a faixa</h3>
+              <p>DJ MU540 — Submundo 808 entra como trilha principal e mantém a pegada energética da página.</p>
+              <p>As outras faixas ficam disponíveis abaixo do player, para alternar manualmente.</p>
+            </article>
+            <article class="detail-card">
+              <h3>Créditos</h3>
+              <ul>
+                <li>Email: marcosxxt658@gmail.com</li>
+                <li>WhatsApp: https://wa.me/5593981160223</li>
+                <li>Instagram: @marcos_xll77</li>
+              </ul>
+            </article>
+            <article class="detail-card">
+              <h3>Mais informações</h3>
+              <p>A playlist apresenta energia urbana, encontros de FiveM, Valorant e vibes automação/paisagem sonora.</p>
+              <p>Rolando para baixo você encontra os créditos fixos e a documentação no README.</p>
+            </article>
+          </div>
+        </section>
+      </div>
+    </div>
     <div
       id="music-switcher"
       role="region"
