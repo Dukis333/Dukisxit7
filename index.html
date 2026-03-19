@@ -8,15 +8,11 @@
       content="Portfólio pessoal de Dukis — projetos, habilidades e presença digital com trilha sonora personalizada."
     />
     <title>Dukis | Portfolio</title>
+    <script type="module" crossorigin src="./assets/index-CUdt0hpo.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Dt7S-A24.css" />
     <style>
       :root {
         color-scheme: dark;
-      }
-      html,
-      body {
-        width: 100%;
-        overflow-x: hidden !important;
-        overflow-y: auto !important;
       }
       *, *::before, *::after {
         box-sizing: border-box;
@@ -114,9 +110,6 @@
         min-height: 100vh;
         z-index: 1;
       }
-      .page-shell__content {
-        padding-bottom: 6rem;
-      }
       .details-section {
         position: relative;
         z-index: 3;
@@ -201,42 +194,6 @@
         text-transform: uppercase;
         color: rgba(255, 255, 255, 0.7);
       }
-      .credits-footer {
-        position: fixed;
-        left: 50%;
-        bottom: 1.5rem;
-        transform: translateX(-50%);
-        z-index: 60;
-        max-width: min(90vw, 860px);
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
-        border-radius: 999px;
-        font-size: 0.75rem;
-        color: rgba(255, 255, 255, 0.75);
-        background: rgba(12, 12, 12, 0.55);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(10px);
-      }
-      .credits-footer a {
-        color: rgba(255, 255, 255, 0.78);
-        transition: color 0.2s ease;
-      }
-      .credits-footer a:hover {
-        color: #ffffff;
-      }
-      .credits-footer__whatsapp:hover {
-        color: #00ff88;
-      }
-      .credits-footer__instagram:hover {
-        color: #e4405f;
-      }
-      .credits-footer .divider {
-        opacity: 0.55;
-      }
       footer {
         z-index: 60;
       }
@@ -250,10 +207,6 @@
         }
         .details-section {
           padding: 3rem 1rem 4rem;
-        }
-        .credits-footer {
-          bottom: 1rem;
-          border-radius: 1rem;
         }
       }
     </style>
@@ -284,6 +237,7 @@
     </div>
     <div class="page-shell">
       <div class="page-shell__content">
+        <div id="root"></div>
         <section class="details-section" aria-labelledby="info-heading">
           <div class="details-grid">
             <article class="detail-card">
@@ -328,20 +282,26 @@
         </section>
       </div>
     </div>
-    <footer class="credits-footer" aria-label="Créditos">
+    <footer
+      class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-full text-xs text-white/70 glass flex flex-wrap items-center gap-2"
+      style="max-width: 90vw"
+      aria-label="Créditos"
+    >
       <span>Créditos:</span>
-      <a href="mailto:marcosxxt658@gmail.com">marcosxxt658@gmail.com</a>
-      <span class="divider">•</span>
+      <a class="hover:text-white/60 transition-colors break-all" href="mailto:marcosxxt658@gmail.com"
+        >marcosxxt658@gmail.com</a
+      >
+      <span>•</span>
       <a
-        class="credits-footer__whatsapp"
+        class="hover:text-[#00ff88] transition-colors"
         href="https://wa.me/5593981160223"
         target="_blank"
         rel="noreferrer"
         >WhatsApp</a
       >
-      <span class="divider">•</span>
+      <span>•</span>
       <a
-        class="credits-footer__instagram"
+        class="hover:text-[#E4405F] transition-colors"
         href="https://instagram.com/marcos_xll77"
         target="_blank"
         rel="noreferrer"
