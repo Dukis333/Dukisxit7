@@ -20,6 +20,7 @@
   const SETTINGS = {
     audioSrc: "./diario-cafajeste.mp3",
     initialVolume: 0.35,
+    initialFadeDurationMs: 1800,
     autoPlayOnFirstUserClick: true,
     // Mantem o video de fundo rodando e evita pausar ele.
     ignoreVideoElementsWhenStoppingOtherMedia: true,
@@ -46,6 +47,8 @@
   const state = {
     isPlaying: false,
     panelOpen: false,
+    didSmoothStart: false,
+    fadeRaf: null,
   };
 
   const audio = new Audio(SETTINGS.audioSrc);
@@ -88,11 +91,57 @@
     }
   }
 
+  function getTargetVolume() {
+    const value = Number(ui.volumeInput.value);
+    if (Number.isNaN(value)) {
+      return SETTINGS.initialVolume;
+    }
+
+    return Math.min(1, Math.max(0, value));
+  }
+
+  function cancelFade() {
+    if (state.fadeRaf !== null) {
+      cancelAnimationFrame(state.fadeRaf);
+      state.fadeRaf = null;
+    }
+  }
+
+  function fadeInToTarget(durationMs) {
+    cancelFade();
+
+    const targetVolume = getTargetVolume();
+    audio.muted = false;
+    audio.volume = 0;
+
+    const startAt = performance.now();
+    const tick = (now) => {
+      const progress = Math.min(1, (now - startAt) / durationMs);
+      audio.volume = targetVolume * progress;
+
+      if (progress < 1 && !audio.paused) {
+        state.fadeRaf = requestAnimationFrame(tick);
+        return;
+      }
+
+      state.fadeRaf = null;
+      audio.volume = targetVolume;
+    };
+
+    state.fadeRaf = requestAnimationFrame(tick);
+  }
+
   async function playAudio() {
     stopOtherMedia({ target: audio });
 
     try {
       await audio.play();
+      if (!state.didSmoothStart) {
+        state.didSmoothStart = true;
+        fadeInToTarget(SETTINGS.initialFadeDurationMs);
+      } else {
+        audio.muted = false;
+      }
     } catch (error) {
       // Evita mensagem de bloqueio; mantem estado e tenta novamente no proximo gatilho.
       state.isPlaying = false;
@@ -124,7 +173,6 @@
 
   // Tenta iniciar automaticamente de forma silenciosa e depois restaura o volume.
   (function tryAutoStart() {
-    const initialVolume = audio.volume;
     audio.volume = 0;
     audio.muted = true;
 
@@ -134,14 +182,14 @@
         state.isPlaying = true;
         updateUi();
 
-        setTimeout(() => {
-          audio.muted = false;
-          audio.volume = initialVolume;
-        }, 200);
+        if (!state.didSmoothStart) {
+          state.didSmoothStart = true;
+          fadeInToTarget(SETTINGS.initialFadeDurationMs);
+        }
       })
       .catch(() => {
         audio.muted = false;
-        audio.volume = initialVolume;
+        audio.volume = getTargetVolume();
       });
   })();
 
@@ -188,6 +236,8 @@
   ui.volumeInput.addEventListener("input", (event) => {
     const value = Number(event.target.value);
     if (!Number.isNaN(value)) {
+      cancelFade();
+      audio.muted = false;
       audio.volume = value;
     }
   });
